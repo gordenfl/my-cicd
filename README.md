@@ -70,4 +70,6 @@ My practice of CI/CD.
     * you can visit the URL: "https://www.github.com/actions" to get all actions pre-defined by the open source world.
     different kinds of action will do different things you can use that yaml to finish what you want. and if you want know what is the main logic of that action, you can read that file there.
     It has the document there, you can read that while you confused
-    * 
+
+5. How to make Docker Image
+    * you can go to the docker hub and 
