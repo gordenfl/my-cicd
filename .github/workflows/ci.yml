@@ -38,7 +38,7 @@ jobs:
       with:
         image: gordenfl/tttt # come from hte docker hub, what dockerhub repositories you want put
         tags: v1, latest
-        registry: docker.io
+        registry: docker.io   # 如果是推送到docker Hub 的话,这里必须要写docker.io, 否则会有问题
         dockerfile: Dockerfile.ci
         username: ${{ secrets.DOCKER_USERNAME }} # 这定义在github里面 本项目的Setting里面有一个环境变量定义的功能
-        password: ${{ secrets.DOCKER_PASSWORD }} # 也是
+        password: ${{ secrets.DOCKER_PASSWORD }} # 也是但是不要配置错误
