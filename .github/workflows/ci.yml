@@ -39,5 +39,5 @@ jobs:
         tags: v1, latest
         registry: registry-url.io
         dockerfile: Dockerfile.ci
-        username: ${{ secrets.DOCKER_USERNAME }} # 这定义在github里面
+        username: ${{ secrets.DOCKER_USERNAME }} # 这定义在github里面 本项目的Setting里面有一个环境变量定义的功能
         password: ${{ secrets.DOCKER_PASSWORD }} # 也是
