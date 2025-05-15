@@ -17,3 +17,6 @@ class UserViewSet(viewsets.ModelViewSet):
 class SongViewSet(viewsets.ModelViewSet):
     queryset = Song.objects.all()
     serializer_class = SongSerializer
+
+class SongSViewSet(viewsets.ModelViewSet):
+    queryset = Song.objects.all()
