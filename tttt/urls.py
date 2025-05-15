@@ -14,10 +14,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from music_rank import urls
+
+from rest_framework import routers
+from music_rank import views
+
+router = routers.DefaultRouter()
+router.register(r'users', views.UserViewSet, basename='user')
+router.register(r'songs', views.SongViewSet, basename='song')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    
+    path('api/', include(router.urls)),
 ]
