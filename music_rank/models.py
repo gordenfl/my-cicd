@@ -2,16 +2,12 @@ from django.db import models
 
 # Create your models here.
 
-class User(models):
+class User(models.Model):
     user_name = models.CharField(max_length=128)
 
 
-class Song(models):
+class Song(models.Model):
     song_name = models.CharField(max_length=128)
     song_url = models.CharField(max_length=128)
 
-class UserHistory(models):
-    user = models.ForeignKey(to=User)
-    song = models.ForeignKey(to=Song)
-    timestamp = models.DateTimeField()
 
