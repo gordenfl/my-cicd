@@ -154,3 +154,42 @@ metadata:
     kubernetes.io/service-account.name: gordenfl
 type: kubernetes.io/service-account-token
 EOF
+
+
+
+- name: Update deployment
+  uses: appleboy/kubernetes-action@master
+  with:
+    server: ${{ secrets.K8S_SERVER }}
+    ca_cert: ${{ secrets.K8S_CA_CERT }}
+    token: ${{ secrets.K8S_TOKEN }}
+    namespace: github-action
+    deployment: nginx
+    container: nginx
+    image: nginx:1.24.0
+
+
+在上述配置中：
+
+server：Kubernetes 集群的 API 服务器地址。
+
+ca_cert：证书颁发机构的证书。
+
+token：用于认证的 Kubernetes 服务账户令牌。
+
+namespace：指定的命名空间。
+
+deployment：要更新的部署名称。
+
+container：要更新的容器名称。
+
+image：新的镜像名称和标签。
+
+
+kubectl config view --minify -o jsonpath='{.clusters[0].cluster.certificate-authority}'
+cat ~/.minikube/ca.crt | base64 -w 0
+
+
+
+
+
