@@ -1,9 +1,9 @@
 name: Django CI
 
-on:
-  push:
+on: # when this CI will be trigger
+  push: #one action is push
     branches: [ "main" ]
-  pull_request:
+  pull_request: #  another action is pull_request
     branches: [ "main" ]
 
 
@@ -42,3 +42,31 @@ jobs:
         dockerfile: Dockerfile.ci
         username: ${{ secrets.DOCKER_USERNAME }} # 这定义在github里面 本项目的Setting里面有一个环境变量定义的功能
         password: ${{ secrets.DOCKER_PASSWORD }} # 也是但是不要配置错误
+
+    - name: Set up Kubeconfig
+      run: |
+        mkdir -p $HOME/.kube
+        echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+    
+    - name: Deploy to Kubernetes
+      run: |
+        kubectl apply -f k8s/deployment.yaml
+
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'v1.27.0'
+      
+      - name: Set up Kube config
+        run: |
+          mkdir -p $HOME/.kube
+          echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+      
+      - name: Deploy to Kubernetes
+        run: kubectl apply -f k8s/deployment.yaml

@@ -120,4 +120,7 @@ My practice of CI/CD.
 1. All explanation of 1 2 3 are all the CI (Continuous Integration) part of CI/CD. next step we need explain what is CD (Continuous Delivery).
 
     * What's the Delivery, that means we need to send our docker images to user, let them use all the new function or bug fixing.
-    TODO: Let me finish the project at first.
+
+2. How to deploy the Docker image into K8S.
+    * You should install MiniKube in you platform. if don't know how to, please check the Document of K8S/INSTALL.md
+    * Assume you have start the minikube. While
