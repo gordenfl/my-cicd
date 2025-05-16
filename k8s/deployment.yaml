@@ -12,8 +12,8 @@ spec:
       labels:
         app: my-app
     spec: 
-      containers:
+      containers: 
       - name: Django_CI
         image: gordenfl/tttt:v1
-        ports:
+        ports: 
         - containerPort: 8080
