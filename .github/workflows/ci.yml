@@ -5,6 +5,8 @@ on: # when this CI will be trigger
     branches: [ "main" ]
   pull_request: #  another action is pull_request
     branches: [ "main" ]
+  #schedule:
+  #  - corn: 0 12 * * 1
 
 
 jobs:
@@ -43,16 +45,8 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }} # 这定义在github里面 本项目的Setting里面有一个环境变量定义的功能
         password: ${{ secrets.DOCKER_PASSWORD }} # 也是但是不要配置错误
 
-    - name: Set up Kubeconfig
-      run: |
-        mkdir -p $HOME/.kube
-        echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
-    
-    - name: Deploy to Kubernetes
-      run: |
-        kubectl apply -f k8s/deployment.yaml
-
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -66,7 +60,20 @@ jobs:
       - name: Set up Kube config
         run: |
           mkdir -p $HOME/.kube
-          echo "${{ secrets.KUBECONFIG }}" > $HOME/.kube/config
+          echo "${{ secrets.KUBECONFIG }}" > kubeconfig.yaml
+          export KUBECONFIG=kubeconfig.yaml
       
       - name: Deploy to Kubernetes
-        run: kubectl apply -f k8s/deployment.yaml
+        uses: appleboy/kubernetes-action@master
+        with:
+          server: ${{ secrets.K8S_SERVER }}
+          ca_cert: ${{ secrets.K8S_CA_CERT }}
+          token: ${{ secrets.K8S_TOKEN }}
+          namespace: default
+          deployment: my-app
+          container: my-app
+          image: ${{ secrets.DOCKER_USERNAME }}/my-app:${{ github.sha }}
+
+
+
+

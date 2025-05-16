@@ -124,3 +124,33 @@ My practice of CI/CD.
 2. How to deploy the Docker image into K8S.
     * You should install MiniKube in you platform. if don't know how to, please check the Document of K8S/INSTALL.md
     * Assume you have start the minikube. While
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+kubectl apply -f - <<EOF
+apiVersion: v1
+kind: Secret
+metadata:
+  name: gordenfl-token
+  annotations:
+    kubernetes.io/service-account.name: gordenfl
+type: kubernetes.io/service-account-token
+EOF
