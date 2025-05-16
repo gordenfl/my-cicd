@@ -13,7 +13,7 @@ spec:
         app: my-app
     spec: 
       containers: 
-      - name: Django_CI
+      - name: my-app
         image: gordenfl/tttt:v1
         ports: 
         - containerPort: 8080
