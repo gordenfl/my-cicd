@@ -5,13 +5,9 @@ on: # when this CI will be trigger
     branches: [ "main" ]
   pull_request: #  another action is pull_request
     branches: [ "main" ]
-  #schedule:
-  #  - corn: 0 12 * * 1
-
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
@@ -64,7 +60,7 @@ jobs:
           export KUBECONFIG=kubeconfig.yaml
       
       - name: Deploy to Kubernetes
-        uses: appleboy/kubernetes-action@master
+        uses: appleboy/kubernetes-action@v0.0.1
         with:
           server: ${{ secrets.K8S_SERVER }}
           ca_cert: ${{ secrets.K8S_CA_CERT }}
